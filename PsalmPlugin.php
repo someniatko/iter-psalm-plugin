@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace AlexS\iter;
 
@@ -9,16 +10,17 @@ use Psalm\Plugin\PluginEntryPointInterface;
 use Psalm\Plugin\RegistrationInterface;
 use SplFileInfo;
 
-class PsalmPlugin implements PluginEntryPointInterface
+final class PsalmPlugin implements PluginEntryPointInterface
 {
-    public function __invoke(RegistrationInterface $psalm, SimpleXMLElement $config = null)
+    public function __invoke(RegistrationInterface $psalm, SimpleXMLElement $config = null): void
     {
-        foreach ($this->getStubFiles() as $file) {
+        foreach ($this->getStubFilenames() as $file) {
             $psalm->addStubFile($file);
         }
     }
 
-    private function getStubFiles()
+    /** @return iterable<int, string> */
+    private function getStubFilenames(): iterable
     {
         /** @var SplFileInfo[] $files */
         $files = new RecursiveIteratorIterator(

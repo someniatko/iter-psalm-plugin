@@ -1,20 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace iter;
-
-use Traversable;
-use Countable;
 
 /**
  * @template T of int|float
  *
  * @param T $start
  * @param T $end
- * @param T $step
+ * @param T|null $step
  *
  * @return \Iterator<T>
  */
-function range($start, $end, $step = null) {}
+function range($start, $end, $step = null): \Iterator {}
 
 /**
  * @template TBefore
@@ -25,7 +23,7 @@ function range($start, $end, $step = null) {}
  *
  * @return \Iterator<TAfter>
  */
-function map(callable $function, $iterable) {}
+function map(callable $function, iterable $iterable): \Iterator {}
 
 /**
  * @template TBefore
@@ -37,7 +35,7 @@ function map(callable $function, $iterable) {}
  *
  * @return \Iterator<TAfter, TValue>
  */
-function mapKeys(callable $function, $iterable) {}
+function mapKeys(callable $function, iterable $iterable): \Iterator {}
 
 /**
  * @template TVBefore
@@ -49,7 +47,7 @@ function mapKeys(callable $function, $iterable) {}
  *
  * @return \Iterator<TKAfter, TVAfter>
  */
-function flatMap(callable $function, $iterable) {}
+function flatMap(callable $function, iterable $iterable): \Iterator {}
 
 /**
  * @template TV
@@ -61,7 +59,7 @@ function flatMap(callable $function, $iterable) {}
  *
  * @return \Iterator<TKAfter, TValue>
  */
-function reindex(callable $function, $iterable) {}
+function reindex(callable $function, iterable $iterable): \Iterator {}
 
 /**
  * @template T
@@ -71,7 +69,7 @@ function reindex(callable $function, $iterable) {}
  *
  * @return void
  */
-function apply(callable $function, $iterable) {}
+function apply(callable $function, iterable $iterable): \Iterator {}
 
 /**
  * @template TKey
@@ -80,9 +78,9 @@ function apply(callable $function, $iterable) {}
  * @param callable(TValue):bool
  * @param iterable<TKey, TValue>
  *
- * @param \Iterator<TKey, TValue>
+ * @return \Iterator<TKey, TValue>
  */
-function filter(callable $predicate, $iterable) {}
+function filter(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
  * @template TKey
@@ -90,80 +88,123 @@ function filter(callable $predicate, $iterable) {}
  *
  * @param iterable<TKey, TValue>
  *
- * @param \Iterator<array{0:TKey, 1:TValue}>
+ * @return \Iterator<array{0:TKey, 1:TValue}>
  */
-function enumerate($iterable) {}
+function enumerate(iterable $iterable): \Iterator {}
+
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @param iterable<TKey, TValue>
+ *
+ * @return \Iterator<array{0:TKey, 1:TValue}>
+ */
+function toPairs(iterable $iterable): \Iterator {}
+
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @param iterable<array{0:TKey, 1:TValue}>
+ *
+ * @return \Iterator<TKey, TValue>
+ */
+function fromPairs(iterable $iterable): \Iterator {}
 
 /**
  * @template TKey
  * @template TValue
  * @template TAcc
  *
- * @param callable(TAcc, TValue, TKey):TAcc $function
+ * @param callable(TAcc, TValue, TKey=):TAcc $function
  * @param iterable<TKey, TValue> $iterable
  * @param TAcc $startValue
  *
  * @return TAcc
  */
-function reduce(callable $function, $iterable, $startValue = null) {}
+function reduce(callable $function, iterable $iterable, $startValue = null) {}
 
 /**
  * @template TKey
  * @template TValue
  * @template TAcc
  *
- * @param callable(TAcc, TValue, TKey):TAcc $function
+ * @param callable(TAcc, TValue, TKey=):TAcc $function
  * @param iterable<TKey, TValue> $iterable
  * @param TAcc $startValue
  *
  * @return \Iterator<TAcc>
  */
-function reductions(callable $function, $iterable, $startValue = null) {}
+function reductions(callable $function, iterable $iterable, $startValue = null): \Iterator {}
+
+/**
+ * FIXME: this is very simplified approach as it does not consider different types for
+ * different iterables. However, it seems, this is not fixable using psalm.
+ *
+ * @template TKey
+ * @template TValue
+ *
+ * @param iterable<TKey, TValue> ...$iterables
+ * @return \Iterator<array<TKey, TValue>>
+ */
+function zip(iterable ...$iterables): \Iterator {}
 
 /**
  * @template TKey
  * @template TValue
  *
- * @param iterable<TKey> $keys
- * @param iterable<TValue> $values
+ * @param iterable<mixed, TKey> $keys
+ * @param iterable<mixed, TValue> $values
  *
- * @return iterable<TKey, TValue>
+ * @return \Iterator<TKey, TValue>
  */
-function zipKeyValue($keys, $values) {}
+function zipKeyValue(iterable $keys, iterable $values): \Iterator {}
+
+/**
+ * FIXME: again, this is very simplified approach as it does not consider different types for
+ * different iterables. However, it seems, this is not fixable using psalm.
+ *
+ * @template TValue
+ *
+ * @param iterable<mixed, TValue> ...$iterables
+ * @return \Iterator<list<TValue>>
+ */
+function product(iterable ...$iterables): \Iterator {}
 
 /**
  * @template TKey
  * @template TValue
  *
  * @param iterable<TKey, TValue> $iterable
- * @param numeric $start
- * @param numeric $length
+ * @param int $start
+ * @param int $length
  *
- * @return iterable<TKey, TValue>
+ * @return \Iterator<TKey, TValue>
  */
-function slice($iterable, $start, $length = INF) {}
+function slice(iterable $iterable, int $start, $length = INF): \Iterator {}
 
 /**
  * @template TKey
  * @template TValue
  *
- * @param numeric $num
+ * @param int $num
  * @param iterable<TKey, TValue> $iterable
  *
- * @return iterable<TKey, TValue>
+ * @return \Iterator<TKey, TValue>
  */
-function take($num, $iterable) {}
+function take(int $num, iterable $iterable): \Iterator {}
 
 /**
  * @template TKey
  * @template TValue
  *
- * @param numeric $num
+ * @param int $num
  * @param iterable<TKey, TValue> $iterable
  *
- * @return iterable<TKey, TValue>
+ * @return \Iterator<TKey, TValue>
  */
-function drop($num, $iterable) {
+function drop(int $num, iterable $iterable): \Iterator {
     return slice($iterable, $num);
 }
 
@@ -171,12 +212,13 @@ function drop($num, $iterable) {
  * @template T
  *
  * @param T $value
- * @param numeric $num
+ * @param int $num
+ *
+ * @throws \InvalidArgumentException if num is negative
  *
  * @return \Iterator<T>
  */
-// TODO assert value is not negative
-function repeat($value, $num = INF) {}
+function repeat($value, $num = INF): \Iterator {}
 
 /**
  * @template T
@@ -185,16 +227,16 @@ function repeat($value, $num = INF) {}
  *
  * @return \Iterator<T>
  */
-function keys($iterable) {}
+function keys(iterable $iterable): \Iterator {}
 
 /**
  * @template T
  *
  * @param iterable<mixed, T> $iterable
  *
- * @return \Iterator<int, T>
+ * @return \Iterator<T>
  */
-function values($iterable) {}
+function values($iterable): \Iterator {}
 
 /**
  * @template T
@@ -204,7 +246,7 @@ function values($iterable) {}
  *
  * @return bool
  */
-function any(callable $predicate, $iterable) {}
+function any(callable $predicate, iterable $iterable): bool {}
 
 /**
  * @template T
@@ -214,7 +256,7 @@ function any(callable $predicate, $iterable) {}
  *
  * @return bool
  */
-function all(callable $predicate, $iterable) {}
+function all(callable $predicate, iterable $iterable): bool {}
 
 /**
  * @template T
@@ -224,7 +266,7 @@ function all(callable $predicate, $iterable) {}
  *
  * @return null|T
  */
-function search(callable $predicate, $iterable) {}
+function search(callable $predicate, iterable $iterable) {}
 
 /**
  * @template T
@@ -232,9 +274,9 @@ function search(callable $predicate, $iterable) {}
  * @param callable(T):bool $predicate
  * @param iterable<T> $iterable
  *
- * @return iterable<T>
+ * @return \Iterator<T>
  */
-function takeWhile(callable $predicate, $iterable) {}
+function takeWhile(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
  * @template T
@@ -242,9 +284,18 @@ function takeWhile(callable $predicate, $iterable) {}
  * @param callable(T):bool $predicate
  * @param iterable<T> $iterable
  *
- * @return iterable<T>
+ * @return \Iterator<T>
  */
-function dropWhile(callable $predicate, $iterable) {}
+function dropWhile(callable $predicate, iterable $iterable): \Iterator {}
+
+/**
+ * FIXME: probably not solvable without recursive types like in TypeScript
+ *
+ * @param iterable $iterable
+ * @param int $levels
+ * @return \Iterator
+ */
+function flatten(iterable $iterable, $levels = INF): \Iterator {}
 
 /**
  * @template TKey
@@ -252,30 +303,54 @@ function dropWhile(callable $predicate, $iterable) {}
  *
  * @param iterable<TKey, TValue> $iterable
  *
- * @return iterable<TValue, TKey>
+ * @return \Iterator<TValue, TKey>
  */
-function flip($iterable) {}
+function flip(iterable $iterable): \Iterator {}
 
 /**
  * @template TKey of array-key
  * @template TValue
  *
  * @param iterable<TKey, TValue> $iterable
- * @param numeric $size
+ * @param int $size
  * @param bool $preserveKeys
+ *
+ * @return \Iterator<list<TValue>|array<TKey, TValue>>
+ */
+function chunk(iterable $iterable, int $size, bool $preserveKeys = false): \Iterator {}
+
+/**
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @param iterable<TKey, TValue> $iterable
+ * @param int $size
  *
  * @return \Iterator<array<TKey, TValue>>
  */
-function chunk($iterable, $size, $preserveKeys = true) {}
+function chunkWithKeys(iterable $iterable, int $size): \Iterator {}
 
 /**
+ * FIXME: how to specify objects implementing __toString() ?
+ *
  * @param string $separator
- * @param iterable $iterable
+ * @param iterable<string|object> $iterable
  *
  * @return string
  */
-// TODO iterable of string or objects with __toString...
-function join($separator, $iterable) {}
+function join(string $separator, iterable $iterable): string {}
+
+/**
+ * @param iterable|\Countable $iterable
+ * @return int
+ */
+function count($iterable): int {}
+
+/**
+ * @param iterable|\Countable $iterable
+ * @return bool
+ */
+function isEmpty($iterable): bool {}
 
 /**
  * @template TKey
@@ -285,16 +360,16 @@ function join($separator, $iterable) {}
  *
  * @return \Iterator<TKey, TValue>
  */
-function toIter($iterable) {}
+function toIter(iterable $iterable): \Iterator {}
 
 /**
  * @template T
  *
- * @param iterable $iterable<T>
+ * @param iterable<T> $iterable
  *
- * @return array<int, T>
+ * @return list<T>
  */
-function toArray($iterable) {}
+function toArray(iterable $iterable): array {}
 
 /**
  * @template TKey of array-key
@@ -304,4 +379,11 @@ function toArray($iterable) {}
  *
  * @return array<TKey, TValue>
  */
-function toArrayWithKeys($iterable) {}
+function toArrayWithKeys(iterable $iterable): array {}
+
+/**
+ * @param $value
+ *
+ * @psalm-assert-if-true iterable $value
+ */
+function isIterable($value): bool {}
