@@ -289,11 +289,14 @@ function takeWhile(callable $predicate, iterable $iterable): \Iterator {}
 function dropWhile(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
- * FIXME: probably not solvable without recursive types like in TypeScript
+ * FIXME: probably not solvable without recursive types like in TypeScript.
+ * Types are only describen for $levels = 1.
  *
- * @param iterable $iterable
+ * @template T
+ *
+ * @param iterable<iterable<T>> $iterable
  * @param int $levels
- * @return \Iterator
+ * @return iterable<T>
  */
 function flatten(iterable $iterable, $levels = INF): \Iterator {}
 
