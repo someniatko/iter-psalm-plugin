@@ -296,7 +296,7 @@ function dropWhile(callable $predicate, iterable $iterable): \Iterator {}
  *
  * @param iterable<iterable<T>> $iterable
  * @param int $levels
- * @return iterable<T>
+ * @return \Iterator<T>
  */
 function flatten(iterable $iterable, $levels = INF): \Iterator {}
 
