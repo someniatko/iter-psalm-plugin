@@ -17,11 +17,12 @@ function range($start, $end, $step = null): \Iterator {}
 /**
  * @template TBefore
  * @template TAfter
+ * @template TKey
  *
  * @param callable(TBefore):TAfter $function
- * @param iterable<TBefore> $iterable
+ * @param iterable<TKey, TBefore> $iterable
  *
- * @return \Iterator<TAfter>
+ * @return \Iterator<TKey, TAfter>
  */
 function map(callable $function, iterable $iterable): \Iterator {}
 
