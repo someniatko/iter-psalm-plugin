@@ -456,6 +456,8 @@ function toArray(iterable $iterable): array {}
 function toArrayWithKeys(iterable $iterable): array {}
 
 /**
+ * @psalm-pure
+ *
  * @param $value
  *
  * @psalm-assert-if-true iterable $value
