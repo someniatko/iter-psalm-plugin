@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace iter;
 
 /**
+ * @psalm-pure
+ *
  * @template T of int|float
  *
  * @param T $start
@@ -15,6 +17,8 @@ namespace iter;
 function range($start, $end, $step = null): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TBefore
  * @template TAfter
  * @template TKey
@@ -27,6 +31,8 @@ function range($start, $end, $step = null): \Iterator {}
 function map(callable $function, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TBefore
  * @template TAfter
  * @template TValue
@@ -39,6 +45,8 @@ function map(callable $function, iterable $iterable): \Iterator {}
 function mapKeys(callable $function, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TVBefore
  * @template TKAfter
  * @template TVAfter
@@ -51,6 +59,8 @@ function mapKeys(callable $function, iterable $iterable): \Iterator {}
 function flatMap(callable $function, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TV
  * @template TKBefore
  * @template TVAfter
@@ -73,6 +83,8 @@ function reindex(callable $function, iterable $iterable): \Iterator {}
 function apply(callable $function, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -84,6 +96,8 @@ function apply(callable $function, iterable $iterable): \Iterator {}
 function filter(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -94,6 +108,8 @@ function filter(callable $predicate, iterable $iterable): \Iterator {}
 function enumerate(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -104,6 +120,8 @@ function enumerate(iterable $iterable): \Iterator {}
 function toPairs(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -114,6 +132,8 @@ function toPairs(iterable $iterable): \Iterator {}
 function fromPairs(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  * @template TAcc
@@ -127,6 +147,8 @@ function fromPairs(iterable $iterable): \Iterator {}
 function reduce(callable $function, iterable $iterable, $startValue = null) {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  * @template TAcc
@@ -140,6 +162,8 @@ function reduce(callable $function, iterable $iterable, $startValue = null) {}
 function reductions(callable $function, iterable $iterable, $startValue = null): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * FIXME: this is very simplified approach as it does not consider different types for
  * different iterables. However, it seems, this is not fixable using psalm.
  *
@@ -152,6 +176,8 @@ function reductions(callable $function, iterable $iterable, $startValue = null):
 function zip(iterable ...$iterables): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -163,6 +189,8 @@ function zip(iterable ...$iterables): \Iterator {}
 function zipKeyValue(iterable $keys, iterable $values): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * FIXME: again, this is very simplified approach as it does not consider different types for
  * different iterables. However, it seems, this is not fixable using psalm.
  *
@@ -174,6 +202,8 @@ function zipKeyValue(iterable $keys, iterable $values): \Iterator {}
 function product(iterable ...$iterables): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -186,6 +216,8 @@ function product(iterable ...$iterables): \Iterator {}
 function slice(iterable $iterable, int $start, $length = INF): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -197,6 +229,8 @@ function slice(iterable $iterable, int $start, $length = INF): \Iterator {}
 function take(int $num, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -210,6 +244,8 @@ function drop(int $num, iterable $iterable): \Iterator {
 }
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param T $value
@@ -222,6 +258,8 @@ function drop(int $num, iterable $iterable): \Iterator {
 function repeat($value, $num = INF): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param iterable<T, mixed> $iterable
@@ -231,6 +269,8 @@ function repeat($value, $num = INF): \Iterator {}
 function keys(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param iterable<mixed, T> $iterable
@@ -240,6 +280,8 @@ function keys(iterable $iterable): \Iterator {}
 function values($iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param callable(T):bool $predicate
@@ -250,6 +292,8 @@ function values($iterable): \Iterator {}
 function any(callable $predicate, iterable $iterable): bool {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param callable(T):bool $predicate
@@ -260,6 +304,8 @@ function any(callable $predicate, iterable $iterable): bool {}
 function all(callable $predicate, iterable $iterable): bool {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param callable(T):bool $predicate
@@ -270,6 +316,8 @@ function all(callable $predicate, iterable $iterable): bool {}
 function search(callable $predicate, iterable $iterable) {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param callable(T):bool $predicate
@@ -280,6 +328,8 @@ function search(callable $predicate, iterable $iterable) {}
 function takeWhile(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param callable(T):bool $predicate
@@ -290,6 +340,8 @@ function takeWhile(callable $predicate, iterable $iterable): \Iterator {}
 function dropWhile(callable $predicate, iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * FIXME: probably not solvable without recursive types like in TypeScript.
  * Types are only describen for $levels = 1.
  *
@@ -302,6 +354,8 @@ function dropWhile(callable $predicate, iterable $iterable): \Iterator {}
 function flatten(iterable $iterable, $levels = INF): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -312,6 +366,8 @@ function flatten(iterable $iterable, $levels = INF): \Iterator {}
 function flip(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey of array-key
  * @template TValue
  *
@@ -324,6 +380,8 @@ function flip(iterable $iterable): \Iterator {}
 function chunk(iterable $iterable, int $size, bool $preserveKeys = false): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey of array-key
  * @template TValue
  *
@@ -335,6 +393,8 @@ function chunk(iterable $iterable, int $size, bool $preserveKeys = false): \Iter
 function chunkWithKeys(iterable $iterable, int $size): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * FIXME: how to specify objects implementing __toString() ?
  *
  * @param string $separator
@@ -345,18 +405,24 @@ function chunkWithKeys(iterable $iterable, int $size): \Iterator {}
 function join(string $separator, iterable $iterable): string {}
 
 /**
+ * @psalm-pure
+ *
  * @param iterable|\Countable $iterable
  * @return int
  */
 function count($iterable): int {}
 
 /**
+ * @psalm-pure
+ *
  * @param iterable|\Countable $iterable
  * @return bool
  */
 function isEmpty($iterable): bool {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey
  * @template TValue
  *
@@ -367,6 +433,8 @@ function isEmpty($iterable): bool {}
 function toIter(iterable $iterable): \Iterator {}
 
 /**
+ * @psalm-pure
+ *
  * @template T
  *
  * @param iterable<T> $iterable
@@ -376,6 +444,8 @@ function toIter(iterable $iterable): \Iterator {}
 function toArray(iterable $iterable): array {}
 
 /**
+ * @psalm-pure
+ *
  * @template TKey of array-key
  * @template TValue
  *
