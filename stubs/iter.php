@@ -191,6 +191,17 @@ function zipKeyValue(iterable $keys, iterable $values): \Iterator {}
 /**
  * @psalm-pure
  *
+ * @template TKey
+ * @template TValue
+ *
+ * @param iterable<TKey, TValue> ...$iterables
+ * @return \Iterator<TKey, TValue>
+ */
+function chain(iterable ...$iterables): \Iterator {}
+
+/**
+ * @psalm-pure
+ *
  * FIXME: again, this is very simplified approach as it does not consider different types for
  * different iterables. However, it seems, this is not fixable using psalm.
  *
