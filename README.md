@@ -4,9 +4,9 @@ Stubs to let Psalm understand nikic/iter better
 
 ## Requirements
 
-* PHP 7.2 or compatible
-* Psalm 3.6 or compatible
-* nikic/iter 2.0 or compatible
+* PHP 7.2+ or 8.0+
+* Psalm 3.6+ or 4.0+
+* nikic/iter 2.0+
 
 ## Usage
 
