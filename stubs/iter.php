@@ -66,7 +66,7 @@ function flatMap(callable $function, iterable $iterable): \Iterator {}
  * @template TKAfter
  *
  * @param callable(TValue):TKAfter $function
- * @param iterable<TKBefore, TKAfter> $iterable
+ * @param iterable<TKBefore, TValue> $iterable
  *
  * @return \Iterator<TKAfter, TValue>
  */
