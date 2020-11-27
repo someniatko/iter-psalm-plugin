@@ -52,7 +52,7 @@ function mapKeys(callable $function, iterable $iterable): \Iterator {}
  * @template TVAfter
  *
  * @param callable(TVBefore):iterable<TKAfter, TVAfter> $function
- * @param iterable<TBefore> $iterable
+ * @param iterable<TVBefore> $iterable
  *
  * @return \Iterator<TKAfter, TVAfter>
  */
@@ -61,12 +61,12 @@ function flatMap(callable $function, iterable $iterable): \Iterator {}
 /**
  * @psalm-pure
  *
- * @template TV
+ * @template TValue
  * @template TKBefore
- * @template TVAfter
+ * @template TKAfter
  *
  * @param callable(TValue):TKAfter $function
- * @param iterable<TKBefore, TValue> $iterable
+ * @param iterable<TKBefore, TKAfter> $iterable
  *
  * @return \Iterator<TKAfter, TValue>
  */
@@ -80,7 +80,7 @@ function reindex(callable $function, iterable $iterable): \Iterator {}
  *
  * @return void
  */
-function apply(callable $function, iterable $iterable): \Iterator {}
+function apply(callable $function, iterable $iterable): void {}
 
 /**
  * @psalm-pure
@@ -88,8 +88,8 @@ function apply(callable $function, iterable $iterable): \Iterator {}
  * @template TKey
  * @template TValue
  *
- * @param callable(TValue):bool
- * @param iterable<TKey, TValue>
+ * @param callable(TValue):bool $predicate
+ * @param iterable<TKey, TValue> $iterable
  *
  * @return \Iterator<TKey, TValue>
  */
@@ -101,7 +101,7 @@ function filter(callable $predicate, iterable $iterable): \Iterator {}
  * @template TKey
  * @template TValue
  *
- * @param iterable<TKey, TValue>
+ * @param iterable<TKey, TValue> $iterable
  *
  * @return \Iterator<array{0:TKey, 1:TValue}>
  */
@@ -113,7 +113,7 @@ function enumerate(iterable $iterable): \Iterator {}
  * @template TKey
  * @template TValue
  *
- * @param iterable<TKey, TValue>
+ * @param iterable<TKey, TValue> $iterable
  *
  * @return \Iterator<array{0:TKey, 1:TValue}>
  */
@@ -125,7 +125,7 @@ function toPairs(iterable $iterable): \Iterator {}
  * @template TKey
  * @template TValue
  *
- * @param iterable<array{0:TKey, 1:TValue}>
+ * @param iterable<array{0:TKey, 1:TValue}> $iterable
  *
  * @return \Iterator<TKey, TValue>
  */
